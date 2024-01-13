@@ -36,11 +36,13 @@ def do_deploy(archive_path):
     if run("mv /data/web_static/releases/{}/web_static/* "
            "/data/web_static/releases/{}/".format(name, name)).failed:
         return False
-    if run("rm -rf /data/web_static/releases/{}/web_static".format(name)).failed:
+    if run("rm -rf /data/web_static/releases/{}/web_static"
+           .format(name)).failed:
         return False
     if run("rm -rf /data/web_static/current").failed:
         return False
-    if run("ln -s /data/web_static/releases/{}/ /data/web_static/current".format(
+    if run("ln -s /data/web_static/releases/{}/ /data/web_static/current"
+           .format(
             name)).failed:
         return False
 
