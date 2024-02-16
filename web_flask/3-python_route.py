@@ -1,50 +1,56 @@
 #!/usr/bin/python3
-"""Starts a Flask web application.
+"""Starts a Flask web application with four routes.
 
 The application listens on 0.0.0.0, port 5000.
 Routes:
-    /: Displays 'Hello HBNB!'.
-    /hbnb: Displays 'HBNB'.
-    /c/<text>: Displays 'C' followed by the value of <text>.
-    /python/(<text>): Displays 'Python' followed by the value of <text>.
+    /: Displays the 'Hello HBNB!'.
+    /hbnb: Displays the 'HBNB'.
+    /c/<text>: Displays the 'C' followed by the value of <text>.
+    /python/<text>: Display the "Python" followed by the value of <text>.
 """
+
 from flask import Flask
 
+# Flask module
 app = Flask(__name__)
 
 
 @app.route("/", strict_slashes=False)
 def hello_hbnb():
-    """Displays 'Hello HBNB!'."""
+    """
+    Route that displays 'Hello HBNB!'
+    """
     return "Hello HBNB!"
 
 
 @app.route("/hbnb", strict_slashes=False)
 def hbnb():
-    """Displays 'HBNB'."""
+    """
+    Route that displays 'HBNB'
+    """
     return "HBNB"
 
 
 @app.route("/c/<text>", strict_slashes=False)
-def c(text):
-    """Displays 'C' followed by the value of <text>.
-
-    Replaces any underscores in <text> with slashes.
+def display_c_text(text):
     """
+    Route that displays "C" followed by the value of the text variable
+    """
+    # Replace underscores with spaces in the text variable
     text = text.replace("_", " ")
-    return "C {}".format(text)
+    return "C " + text
 
 
-@app.route("/python", strict_slashes=False)
+@app.route("/python/", defaults={"text": "is cool"}, strict_slashes=False)
 @app.route("/python/<text>", strict_slashes=False)
-def python(text="is cool"):
-    """Displays 'Python' followed by the value of <text>.
-
-    Replaces any underscores in <text> with slashes.
+def display_python_text(text):
     """
+    Route that displays "Python" followed by the value of the text variable
+    """
+    # Replace underscores with spaces in the text variable
     text = text.replace("_", " ")
-    return "Python {}".format(text)
+    return "Python " + text
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", port=5000)
